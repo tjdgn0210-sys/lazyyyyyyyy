@@ -3,18 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>내 첫 웹페이지</title>
+  <title>Sunghoo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>안녕하세요!</h1>
-    <p>간단한 웹페이지입니다.</p>
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="#">sunghoo</a>
+      <nav class="nav">
+        <a href="#services">서비스</a>
+        <a href="#business">비즈니스</a>
+        <a href="#about">회사소개</a>
+        <a href="#news">뉴스룸</a>
+        <a href="#">채용</a>
+      </nav>
+      <div class="header-right">
+        <span class="lang">KOR</span>
+        <a class="btn btn-primary" href="#download">앱 다운로드</a>
+      </div>
+    </div>
   </header>
+
   <main>
-    <button id="btn">클릭해보세요</button>
-    <p id="msg"></p>
+    <!-- 히어로: 큰 문구 + 폰 목업(이미지 교체 영역) -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>모든 일상을<br>더 쉽고 간편하게</h1>
+          <p>하나의 앱으로 필요한 모든 것을 해결하세요.</p>
+          <a class="btn btn-primary btn-lg" href="#download">지금 시작하기</a>
+        </div>
+        <div class="hero-media">
+          <img src="assets/phone-1.svg" alt="앱 화면 이미지 (교체 영역)">
+        </div>
+      </div>
+    </section>
+
+    <!-- 기능 소개: 좌우 번갈아 배치 -->
+    <section id="services" class="feature">
+      <div class="container feature-inner">
+        <div class="feature-media"><img src="assets/phone-2.svg" alt="기능 1 이미지 (교체 영역)"></div>
+        <div class="feature-text">
+          <span class="eyebrow">송금</span>
+          <h2>보내고 받는 일이<br>한 번에 끝나요</h2>
+          <p>복잡한 절차 없이 몇 번의 터치로 간편하게 이용할 수 있어요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature feature-gray">
+      <div class="container feature-inner reverse">
+        <div class="feature-media"><img src="assets/phone-3.svg" alt="기능 2 이미지 (교체 영역)"></div>
+        <div class="feature-text">
+          <span class="eyebrow">자산</span>
+          <h2>내 자산을 한눈에<br>모아서 확인해요</h2>
+          <p>흩어져 있던 정보를 한 곳에서 편하게 관리해 보세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 영상 영역 -->
+    <section class="video-band">
+      <div class="container">
+        <h2>영상으로 만나보세요</h2>
+        <video controls muted loop playsinline poster="assets/video-poster.svg">
+          <!-- <source src="assets/intro.mp4" type="video/mp4"> 영상 파일을 넣으세요 -->
+        </video>
+      </div>
+    </section>
+
+    <!-- 카드 그리드 -->
+    <section id="business" class="cards">
+      <div class="container">
+        <h2>비즈니스를 위한 서비스</h2>
+        <div class="card-grid">
+          <article class="card"><img src="assets/card-1.svg" alt=""><h3>결제</h3><p>간편한 결제 솔루션</p></article>
+          <article class="card"><img src="assets/card-2.svg" alt=""><h3>광고</h3><p>효과적인 고객 도달</p></article>
+          <article class="card"><img src="assets/card-3.svg" alt=""><h3>분석</h3><p>데이터 기반 인사이트</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 다운로드 CTA -->
+    <section id="download" class="cta">
+      <div class="container">
+        <h2>지금 바로 시작해 보세요</h2>
+        <a class="btn btn-light btn-lg" href="#">앱 다운로드</a>
+      </div>
+    </section>
   </main>
-  <script src="script.js"></script>
+
+  <footer id="about" class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong class="logo">sunghoo</strong>
+        <p>© Sunghoo. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">회사소개</a>
+        <a href="#news">뉴스룸</a>
+        <a href="#">채용</a>
+        <a href="#">개인정보처리방침</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
