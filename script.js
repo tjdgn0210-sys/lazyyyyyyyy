@@ -75,7 +75,7 @@ items.forEach((el) => itemObserver.observe(el));
 
 // 섹션 등장 효과
 const revealTargets = document.querySelectorAll(
-  '.section-title, .panel, .hero-visual, .faq details, .pain-card, .pain-answer, .commit-copy, .commit-visual, .demo-copy, .demo-result, .buy-card'
+  '.section-title, .panel, .hero-visual, .faq details, .pain-card, .pain-answer, .commit-copy, .commit-visual, .buy-card'
 );
 revealTargets.forEach((el) => el.classList.add('reveal'));
 const revealObserver = new IntersectionObserver((entries) => {
@@ -100,19 +100,41 @@ const updateSticky = () => {
 window.addEventListener('scroll', updateSticky, { passive: true });
 updateSticky();
 
-// 폭탄 달력 예시 (28칸 중 일부가 폭탄) — 보이면 하나씩 터진다
+// 폭탄 달력 예시 — 보이면 하나씩 터지고, 누르면 어떤 일이 폭발했는지 보여 준다
 const bombGrid = document.getElementById('bombGrid');
-const BOMB_DAYS = [2, 6, 9, 13, 16, 17, 22, 25];
+const bombDetail = document.getElementById('bombDetail');
+const BOMBS = {
+  2: '독서 · 오후 10:00',
+  6: '운동 · 오후 9:30',
+  9: '영어 공부 · 오후 11:00',
+  13: '빨래 개기 · 오후 8:40',
+  16: '독서 · 오후 10:00',
+  17: '장보기 · 오후 7:20',
+  22: '설거지 · 오후 9:10',
+  25: '운동 · 오후 10:30',
+};
 let bombOrder = 0;
 for (let day = 1; day <= 28; day++) {
-  const cell = document.createElement('i');
-  if (BOMB_DAYS.includes(day)) {
-    cell.className = 'hit';
-    cell.textContent = '💣';
-    cell.style.setProperty('--i', bombOrder++);
+  if (!BOMBS[day]) {
+    bombGrid.appendChild(document.createElement('i'));
+    continue;
   }
+  const cell = document.createElement('button');
+  cell.type = 'button';
+  cell.textContent = '💣';
+  cell.dataset.day = day;
+  cell.setAttribute('aria-label', `${day}일 폭탄 보기`);
+  cell.style.setProperty('--i', bombOrder++);
   bombGrid.appendChild(cell);
 }
+bombGrid.addEventListener('click', (e) => {
+  const cell = e.target.closest('button');
+  if (!cell) return;
+  bombGrid.querySelectorAll('button.sel').forEach((el) => el.classList.remove('sel'));
+  cell.classList.add('sel');
+  bombDetail.classList.add('hit');
+  bombDetail.textContent = `${cell.dataset.day}일 · ${BOMBS[cell.dataset.day]} 💥 폭발`;
+});
 new IntersectionObserver((entries, obs) => {
   if (entries.some((e) => e.isIntersecting)) {
     bombGrid.classList.add('on');
@@ -143,91 +165,39 @@ setInterval(() => {
   renderRing();
 }, 1000);
 
-// 체험: 할 일 + 시간을 받아 휴식이 들어간 계획표를 만든다
-const demoForm = document.getElementById('demoForm');
-const demoOut = document.getElementById('demoOut');
-const PLAN_COLORS = ['#3182F6', '#17C3B2', '#FFB547'];
-
-const pad = (n) => String(n).padStart(2, '0');
-const clock = (min) => `${pad(Math.floor(min / 60) % 24)}:${pad(min % 60)}`;
-const spanText = (min) => {
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  return [h ? `${h}시간` : '', m ? `${m}분` : ''].filter(Boolean).join(' ');
+// 헤더 아래 스크롤 진행 바
+const progress = document.getElementById('progress');
+const updateProgress = () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
 };
+window.addEventListener('scroll', updateProgress, { passive: true });
+updateProgress();
 
-const renderPlan = () => {
-  const form = new FormData(demoForm);
-  const total = Number(form.get('total'));
-  const tasks = [1, 2, 3]
-    .map((n) => ({ name: String(form.get(`t${n}`)).trim(), min: Number(form.get(`d${n}`)) }))
-    .filter((t) => t.name);
-
-  demoOut.replaceChildren();
-  const add = (tag, className, text) => {
-    const el = document.createElement(tag);
-    if (className) el.className = className;
-    if (text !== undefined) el.textContent = text;
-    return el;
-  };
-
-  if (!tasks.length) {
-    demoOut.append(add('p', 'tl-empty', '할 일을 하나 이상 적어 주세요.'));
-    return;
-  }
-  const work = tasks.reduce((sum, t) => sum + t.min, 0);
-  if (work > total) {
-    demoOut.append(add('p', 'tl-warn', `할 일(${spanText(work)})이 쓸 수 있는 시간(${spanText(total)})보다 많아요.\n할 일을 줄이거나 시간을 늘려 보세요.`));
-    demoOut.firstChild.style.whiteSpace = 'pre-line';
-    return;
-  }
-
-  const gap = Math.min(60, Math.floor((total - work) / tasks.length / 5) * 5);
-  const now = new Date();
-  let cursor = Math.ceil((now.getHours() * 60 + now.getMinutes()) / 5) * 5;
-  const startAt = cursor;
-
-  const head = add('div', 'tl-head');
-  head.append(add('b', '', '오늘의 계획표'), add('span', '', `${clock(startAt)} 시작 · ${spanText(total)}`));
-  const strip = add('div', 'tl-strip');
-  const list = add('div', 'tl-list');
-
-  tasks.forEach((task, i) => {
-    const item = add('div', 'tl-item');
-    item.style.animationDelay = `${i * 0.12}s`;
-    const time = add('div', 'tl-time', clock(cursor));
-    time.append(add('small', '', clock(cursor + task.min)));
-    const dot = add('span', 'tl-dot');
-    dot.style.background = PLAN_COLORS[i];
-    const body = add('div', 'tl-body');
-    body.append(add('div', 'tl-name', task.name), add('div', 'tl-meta', spanText(task.min)));
-    item.append(time, dot, body);
-    list.append(item);
-
-    const seg = add('i');
-    seg.style.flexGrow = task.min;
-    seg.style.background = PLAN_COLORS[i];
-    strip.append(seg);
-
-    cursor += task.min;
-    if (i < tasks.length - 1 && gap > 0) {
-      const brk = add('div', 'tl-break', `휴식 ${gap}분`);
-      brk.style.animationDelay = `${i * 0.12 + 0.06}s`;
-      list.append(brk);
-      const gapSeg = add('i');
-      gapSeg.style.flexGrow = gap;
-      gapSeg.style.background = '#e5e8eb';
-      strip.append(gapSeg);
-      cursor += gap;
-    }
+// 히어로 폰 화면 탭: 계획표 / 잠금화면 / 기록
+const heroBox = document.getElementById('heroBox');
+const heroTabs = document.querySelectorAll('.screen-tabs button');
+heroTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const key = tab.dataset.hero;
+    heroTabs.forEach((t) => {
+      const on = t === tab;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on);
+    });
+    if (heroBox.dataset.current === key) return;
+    heroBox.classList.add('fade');
+    setTimeout(() => {
+      mountScreen(heroBox, key);
+      heroBox.classList.remove('fade');
+    }, 200);
   });
-
-  const left = startAt + total - cursor;
-  demoOut.append(head, strip, list, add('p', 'tl-foot', `${clock(cursor)}에 모두 끝나요 · 여유 ${spanText(left)}`));
-};
-
-demoForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  renderPlan();
 });
-renderPlan();
+
+// 기능 카드의 일정 스타일 칩 (집중 / 균형 / 여유)
+const styleChips = document.querySelectorAll('#styleChips button');
+styleChips.forEach((chip) => {
+  chip.addEventListener('click', () => {
+    styleChips.forEach((el) => el.classList.toggle('on', el === chip));
+  });
+});
