@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게으름뱅이 일정 앱</title>
-  <meta name="description" content="할 일만 적으면 계획표는 알아서 짜 주는 게으름뱅이 일정 앱을 소개합니다.">
+  <meta name="description" content="할 일만 적으면 계획표는 알아서. 수정은 1분, 못 끝낸 일은 폭탄으로 남는 게으름뱅이 일정 앱.">
   <link rel="stylesheet" href="app-ui.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -18,7 +18,8 @@
       </a>
       <div class="menu" id="menu">
         <a href="#how">사용 방법</a>
-        <a href="#features">기능</a>
+        <a href="#commit">폭탄 시스템</a>
+        <a href="#try">체험해 보기</a>
         <a href="#faq">자주 묻는 질문</a>
       </div>
       <div class="header-right">
@@ -32,18 +33,49 @@
     <!-- 1. 히어로 -->
     <section class="hero">
       <div class="hero-text">
-        <h1>할 일만 적으면<br>계획표는 알아서</h1>
-        <p>게으름뱅이를 위한 오늘의 시간표</p>
-        <a class="btn btn-lg" href="#download">앱 다운로드</a>
+        <p class="hero-kicker">게으름뱅이를 위한 일정 앱</p>
+        <h1>계획 짜는 시간,<br><em>이제 0분.</em></h1>
+        <p class="hero-sub">할 일, 중요도, 쓸 수 있는 시간. 이 세 가지만 알려 주세요.<br>순서와 휴식이 들어간 시간표는 앱이 짭니다.</p>
+        <div class="hero-cta">
+          <a class="btn btn-lg" href="#download">앱 다운로드</a>
+          <a class="btn-ghost" href="#try">먼저 체험해 보기 →</a>
+        </div>
       </div>
       <div class="hero-visual">
+        <div class="float-card fc-left"><span class="fc-ico">✅</span><div><b>영어 공부</b><small>14:04 시작</small></div></div>
+        <div class="float-card fc-right"><span class="fc-ico">⏱</span><div><b>1시간 18분 남음</b><small>87% 진행 중</small></div></div>
         <div class="hero-phone phone-frame">
           <div class="screen-box" data-screen="plan"></div>
         </div>
       </div>
     </section>
 
-    <!-- 2. 사용 방법: 스크롤하면 폰 화면이 바뀌는 sticky 섹션 -->
+    <!-- 2. 공감 -->
+    <section class="pain" id="why">
+      <div class="container">
+        <h2 class="section-title">이런 적,<br>있지 않나요?</h2>
+        <div class="pain-grid">
+          <article class="pain-card">
+            <span class="pain-ico">😵</span>
+            <h3>계획 짜다가<br>하루가 가요</h3>
+            <p>무엇부터 할지 고민하는 사이에 정작 시작할 힘이 사라져요.</p>
+          </article>
+          <article class="pain-card">
+            <span class="pain-ico">📝</span>
+            <h3>계획은 완벽,<br>실행은 0%</h3>
+            <p>예쁘게 적어 놓고 보지 않으면 없는 계획이에요.</p>
+          </article>
+          <article class="pain-card">
+            <span class="pain-ico">🛋️</span>
+            <h3>“이따 하지 뭐”가<br>쌓여요</h3>
+            <p>미룬 일은 어디에도 남지 않아서 또 미루게 돼요.</p>
+          </article>
+        </div>
+        <p class="pain-answer">그래서 만들었어요.<br><b>계획은 앱이 짜고, 미루면 기록으로 남는 일정 앱.</b></p>
+      </div>
+    </section>
+
+    <!-- 3. 사용 방법: 스크롤하면 폰 화면이 바뀌는 sticky 섹션 -->
     <section class="explore" id="how">
       <div class="explore-inner">
         <div class="explore-phone">
@@ -61,11 +93,11 @@
           <article class="explore-item" data-screen="sheet">
             <span class="eyebrow">STEP 1</span>
             <h2>중요도와 정도만<br>고르면 끝</h2>
-            <p>걸리는 정도는 1~5, 스크롤로 골라요.</p>
+            <p>걸리는 정도는 1~5 10~50분단위에요, 스크롤로 골라요.</p>
           </article>
           <article class="explore-item" data-screen="settings">
             <span class="eyebrow">STEP 2</span>
-            <h2>쓸 수 있는 시간을<br>직접 쳐 넣으세요</h2>
+            <h2>쓸 수 있는 시간을<br>직접 넣으세요</h2>
             <p>숫자를 눌러 바로 입력하거나 스크롤로 골라요.</p>
           </article>
           <article class="explore-item" data-screen="plan">
@@ -87,7 +119,59 @@
       </div>
     </section>
 
-    <!-- 3. 기능 -->
+    <!-- 4. 차별점: 1분 확정 + 사라지지 않는 폭탄 -->
+    <section class="commit" id="commit">
+      <div class="container commit-inner">
+        <div class="commit-copy">
+          <span class="eyebrow eyebrow-light">이 앱만의 방식</span>
+          <h2>미루고 싶어도<br>못 미루게</h2>
+          <p class="commit-lead">계획은 짜는 것보다 지키는 게 어렵죠. 그래서 두 가지 규칙을 넣었어요.</p>
+          <ul class="rules">
+            <li><b>1분 안에만 수정</b><span>계획표가 나오면 1분 안에만 고칠 수 있어요. 그 이후엔 확정이에요.</span></li>
+            <li><b>폭탄은 사라지지 않아요</b><span>시간 안에 못 끝낸 일은 폭탄이 되어 기록에 남아요. 한 번 생기면 지울 수 없어요.</span></li>
+          </ul>
+        </div>
+        <div class="commit-visual">
+          <div class="ring-wrap">
+            <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52"/>
+            </svg>
+            <div class="ring-text"><strong id="ringNum">60</strong><span id="ringLabel">초 안에 수정</span></div>
+          </div>
+          <div class="bomb-grid" id="bombGrid" aria-label="폭탄이 쌓인 달력 예시"></div>
+          <p class="bomb-caption">예시: 한 달 동안 쌓인 기록</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 직접 체험 -->
+    <section class="demo" id="try">
+      <div class="container demo-inner">
+        <div class="demo-copy">
+          <span class="eyebrow">직접 체험</span>
+          <h2>지금 내 하루,<br>짜 볼까요?</h2>
+          <p>할 일과 걸리는 시간만 넣어 보세요. 휴식이 알아서 들어간 계획표를 바로 보여 드려요.</p>
+          <form id="demoForm" class="demo-form" autocomplete="off">
+            <div class="demo-row"><input name="t1" value="영어 공부" maxlength="14" aria-label="할 일 1">
+              <select name="d1" aria-label="할 일 1 시간"><option value="30">30분</option><option value="60" selected>1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div>
+            <div class="demo-row"><input name="t2" value="운동" maxlength="14" aria-label="할 일 2">
+              <select name="d2" aria-label="할 일 2 시간"><option value="30">30분</option><option value="60" selected>1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div>
+            <div class="demo-row"><input name="t3" value="설거지" maxlength="14" aria-label="할 일 3">
+              <select name="d3" aria-label="할 일 3 시간"><option value="30" selected>30분</option><option value="60">1시간</option><option value="90">1시간 30분</option><option value="120">2시간</option></select></div>
+            <div class="demo-row demo-total"><span>쓸 수 있는 시간</span>
+              <select name="total" aria-label="쓸 수 있는 시간"><option value="180">3시간</option><option value="240">4시간</option><option value="300" selected>5시간</option><option value="360">6시간</option><option value="480">8시간</option></select></div>
+            <button class="btn btn-lg" type="submit">계획표 만들기</button>
+          </form>
+        </div>
+        <div class="demo-result">
+          <div class="tl-card" id="demoOut" aria-live="polite"></div>
+          <p class="demo-note">체험용 미리보기예요. 실제 앱에서는 중요도와 걸리는 정도(1~5)까지 반영해서 짜요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 기능 -->
     <section class="features" id="features">
       <div class="container">
         <h2 class="section-title">게으름뱅이에게<br>딱 맞는 기능</h2>
@@ -126,14 +210,14 @@
 
           <div class="panel">
             <h3>못 끝내면 폭탄!</h3>
-            <p class="panel-sub">끝내지 못한 일은 기록에 폭탄으로 남아요.</p>
+            <p class="panel-sub">끝내지 못한 일은 기록에 폭탄으로 남아요. 폭탄이 생기면 사라지지않아요</p>
             <div class="mini-bombs">💣 <span>폭발</span> <small>독서 · 오후 10:00</small></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 4. FAQ -->
+    <!-- 7. FAQ -->
     <section class="faq" id="faq">
       <div class="container narrow">
         <h2 class="section-title">자주 묻는 질문</h2>
@@ -147,19 +231,39 @@
         </details>
         <details>
           <summary>시간 안에 못 끝내면 어떻게 되나요?</summary>
-          <p>끝내지 못한 일은 기록 달력에 폭탄으로 남아요. 날짜를 눌러 어떤 일이 폭발했는지 볼 수 있어요.</p>
+          <p>끝내지 못한 일은 기록 달력에 폭탄으로 남아요. 날짜를 눌러 어떤 일이 폭발했는지 볼 수 있어요.
+            폭탄은 사라지지않아요
+          </p>
         </details>
         <details>
           <summary>계획표를 중간에 바꿀 수 있나요?</summary>
-          <p>수정 버튼으로 언제든 다시 짤 수 있어요.</p>
+          <p>1분 안에 수정만 가능하고 그 이후엔 확정이돼요.</p>
         </details>
       </div>
     </section>
 
-    <!-- 5. 다운로드 -->
-    <section class="cta" id="download">
-      <h2>오늘 계획은<br>앱에게 맡기세요</h2>
-      <a class="btn btn-lg btn-light" href="#">앱 다운로드</a>
+    <!-- 8. 구매 / 다운로드 -->
+    <section class="buy" id="download">
+      <div class="container narrow">
+        <div class="buy-card">
+          <svg class="buy-ico" viewBox="0 0 20 20" aria-hidden="true"><rect width="20" height="20" rx="6" fill="#3182f6"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2>오늘 계획은<br>앱에게 맡기세요</h2>
+          <ul class="checks">
+            <li>할 일·중요도·시간만 넣으면 계획표 완성</li>
+            <li>휴식 시간 자동 배분</li>
+            <li>상단바·잠금화면에서 남은 시간 확인</li>
+            <li>기록 달력과 사라지지 않는 폭탄</li>
+          </ul>
+          <!-- TODO: 가격을 보여주려면 아래 줄의 주석을 풀고 금액을 적으세요
+          <p class="price">₩0,000</p> -->
+          <div class="store-btns">
+            <!-- TODO: href="#" 를 실제 스토어 주소로 바꾸세요 -->
+            <a class="btn btn-lg" href="#">App Store에서 받기</a>
+            <a class="btn btn-lg btn-dark" href="#">Google Play에서 받기</a>
+          </div>
+          <p class="buy-note">오늘 할 일부터 적어 보세요.</p>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -170,10 +274,16 @@
         <p>© Sunghoo. All rights reserved.</p>
       </div>
       <div class="footer-links">
-        <a href="#how">사용 방법</a><a href="#features">기능</a><a href="#faq">FAQ</a>
+        <a href="#how">사용 방법</a><a href="#commit">폭탄 시스템</a><a href="#try">체험</a><a href="#faq">FAQ</a>
       </div>
     </div>
   </footer>
+
+  <!-- 모바일 하단 고정 버튼 -->
+  <div class="sticky-buy" id="stickyBuy">
+    <span>할 일만 적으면 계획표는 알아서</span>
+    <a class="btn" href="#download">앱 다운로드</a>
+  </div>
 
   <script src="screens.js"></script>
   <script src="script.js"></script>
